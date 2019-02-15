@@ -37,7 +37,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: 14.04-arm
+    tags: 14.04-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -52,7 +52,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: 14.04-arm64
+    tags: 14.04-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -61,17 +61,14 @@ steps:
 
 - name: docker-push-manifest
   image: plugins/manifest:1
+  environment:
+    DRONE_TAG: 14.04
   settings:
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: phasecorex/user-ubuntu:14.04
-    template: phasecorex/user-ubuntu:14.04-ARCH
-    platforms:
-      - linux/amd64
-      - linux/arm
-      - linux/arm64
+    spec: .manifest.tmpl
 
 ---
 kind: pipeline
@@ -112,7 +109,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: 16.04-arm
+    tags: 16.04-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -127,7 +124,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: 16.04-arm64
+    tags: 16.04-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -136,17 +133,14 @@ steps:
 
 - name: docker-push-manifest
   image: plugins/manifest:1
+  environment:
+    DRONE_TAG: 16.04
   settings:
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: phasecorex/user-ubuntu:16.04
-    template: phasecorex/user-ubuntu:16.04-ARCH
-    platforms:
-      - linux/amd64
-      - linux/arm
-      - linux/arm64
+    spec: .manifest.tmpl
 
 ---
 kind: pipeline
@@ -187,7 +181,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: 18.04-arm
+    tags: 18.04-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -202,7 +196,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: 18.04-arm64
+    tags: 18.04-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -211,17 +205,14 @@ steps:
 
 - name: docker-push-manifest
   image: plugins/manifest:1
+  environment:
+    DRONE_TAG: 18.04
   settings:
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: phasecorex/user-ubuntu:18.04
-    template: phasecorex/user-ubuntu:18.04-ARCH
-    platforms:
-      - linux/amd64
-      - linux/arm
-      - linux/arm64
+    spec: .manifest.tmpl
 
 ---
 kind: pipeline
@@ -262,7 +253,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: latest-arm
+    tags: latest-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -277,7 +268,7 @@ steps:
     password:
       from_secret: docker_password
     repo: phasecorex/user-ubuntu
-    tags: latest-arm64
+    tags: latest-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -286,15 +277,12 @@ steps:
 
 - name: docker-push-manifest
   image: plugins/manifest:1
+  environment:
+    DRONE_TAG: latest
   settings:
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: phasecorex/user-ubuntu:latest
-    template: phasecorex/user-ubuntu:latest-ARCH
-    platforms:
-      - linux/amd64
-      - linux/arm
-      - linux/arm64
+    spec: .manifest.tmpl
 
