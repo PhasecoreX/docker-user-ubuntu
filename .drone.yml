@@ -33,14 +33,14 @@ steps:
     - git submodule update --init --recursive
     - echo "Pulled latest template files:"
     - ls -1 docker-user-image
-    - ./generate_manifest.sh user-ubuntu amd64 arm32v7 arm64v8
+    - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
     - echo "Generated docker manifest template:"
     - cat .manifest.tmpl
   volumes:
     - name: cache
       path: /cache
 
-- name: docker-build-amd64
+- name: docker-build-arm64v8
   image: plugins/docker
   settings:
     username:
@@ -51,14 +51,14 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 18.04-amd64
-      - bionic-amd64
-      - latest-amd64
+      - 18.04-arm64v8
+      - bionic-arm64v8
+      - latest-arm64v8
     context: docker-user-image
-    dockerfile: docker-user-image/Dockerfile.debian
+    dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
-      - QEMU_ARCH=x86_64
-      - ARCH_IMG=amd64/ubuntu:18.04
+      - QEMU_ARCH=aarch64
+      - ARCH_IMG=arm64v8/ubuntu:18.04
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -86,7 +86,7 @@ steps:
     - name: docker
       path: /var/lib/docker
 
-- name: docker-build-arm64v8
+- name: docker-build-amd64
   image: plugins/docker
   settings:
     username:
@@ -97,14 +97,14 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 18.04-arm64v8
-      - bionic-arm64v8
-      - latest-arm64v8
+      - 18.04-amd64
+      - bionic-amd64
+      - latest-amd64
     context: docker-user-image
-    dockerfile: docker-user-image/Dockerfile.debian.qemu
+    dockerfile: docker-user-image/Dockerfile.debian
     build_args:
-      - QEMU_ARCH=aarch64
-      - ARCH_IMG=arm64v8/ubuntu:18.04
+      - QEMU_ARCH=x86_64
+      - ARCH_IMG=amd64/ubuntu:18.04
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -171,14 +171,14 @@ steps:
     - git submodule update --init --recursive
     - echo "Pulled latest template files:"
     - ls -1 docker-user-image
-    - ./generate_manifest.sh user-ubuntu amd64 arm32v7 arm64v8
+    - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
     - echo "Generated docker manifest template:"
     - cat .manifest.tmpl
   volumes:
     - name: cache
       path: /cache
 
-- name: docker-build-amd64
+- name: docker-build-arm64v8
   image: plugins/docker
   settings:
     username:
@@ -189,13 +189,13 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 14.04-amd64
-      - trusty-amd64
+      - 14.04-arm64v8
+      - trusty-arm64v8
     context: docker-user-image
-    dockerfile: docker-user-image/Dockerfile.debian
+    dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
-      - QEMU_ARCH=x86_64
-      - ARCH_IMG=amd64/ubuntu:14.04
+      - QEMU_ARCH=aarch64
+      - ARCH_IMG=arm64v8/ubuntu:14.04
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -222,7 +222,7 @@ steps:
     - name: docker
       path: /var/lib/docker
 
-- name: docker-build-arm64v8
+- name: docker-build-amd64
   image: plugins/docker
   settings:
     username:
@@ -233,13 +233,13 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 14.04-arm64v8
-      - trusty-arm64v8
+      - 14.04-amd64
+      - trusty-amd64
     context: docker-user-image
-    dockerfile: docker-user-image/Dockerfile.debian.qemu
+    dockerfile: docker-user-image/Dockerfile.debian
     build_args:
-      - QEMU_ARCH=aarch64
-      - ARCH_IMG=arm64v8/ubuntu:14.04
+      - QEMU_ARCH=x86_64
+      - ARCH_IMG=amd64/ubuntu:14.04
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -295,14 +295,14 @@ steps:
     - git submodule update --init --recursive
     - echo "Pulled latest template files:"
     - ls -1 docker-user-image
-    - ./generate_manifest.sh user-ubuntu amd64 arm32v7 arm64v8
+    - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
     - echo "Generated docker manifest template:"
     - cat .manifest.tmpl
   volumes:
     - name: cache
       path: /cache
 
-- name: docker-build-amd64
+- name: docker-build-arm64v8
   image: plugins/docker
   settings:
     username:
@@ -313,13 +313,13 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 16.04-amd64
-      - xenial-amd64
+      - 16.04-arm64v8
+      - xenial-arm64v8
     context: docker-user-image
-    dockerfile: docker-user-image/Dockerfile.debian
+    dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
-      - QEMU_ARCH=x86_64
-      - ARCH_IMG=amd64/ubuntu:16.04
+      - QEMU_ARCH=aarch64
+      - ARCH_IMG=arm64v8/ubuntu:16.04
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -346,7 +346,7 @@ steps:
     - name: docker
       path: /var/lib/docker
 
-- name: docker-build-arm64v8
+- name: docker-build-amd64
   image: plugins/docker
   settings:
     username:
@@ -357,13 +357,13 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 16.04-arm64v8
-      - xenial-arm64v8
+      - 16.04-amd64
+      - xenial-amd64
     context: docker-user-image
-    dockerfile: docker-user-image/Dockerfile.debian.qemu
+    dockerfile: docker-user-image/Dockerfile.debian
     build_args:
-      - QEMU_ARCH=aarch64
-      - ARCH_IMG=arm64v8/ubuntu:16.04
+      - QEMU_ARCH=x86_64
+      - ARCH_IMG=amd64/ubuntu:16.04
   volumes:
     - name: docker
       path: /var/lib/docker
