@@ -51,8 +51,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 14.04-arm64v8
       - trusty-arm64v8
+      - 14.04-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -73,8 +73,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 14.04-arm32v7
       - trusty-arm32v7
+      - 14.04-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -95,8 +95,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 14.04-amd64
       - trusty-amd64
+      - 14.04-amd64
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian
     build_args:
@@ -106,10 +106,10 @@ steps:
     - name: docker
       path: /var/lib/docker
 
-- name: docker-push-manifest-14.04
+- name: docker-push-manifest-trusty
   image: plugins/manifest:1
   environment:
-    DRONE_TAG: 14.04
+    DRONE_TAG: trusty
   settings:
     username:
       from_secret: docker_username
@@ -117,10 +117,10 @@ steps:
       from_secret: docker_password
     spec: .manifest.tmpl
 
-- name: docker-push-manifest-trusty
+- name: docker-push-manifest-14.04
   image: plugins/manifest:1
   environment:
-    DRONE_TAG: trusty
+    DRONE_TAG: 14.04
   settings:
     username:
       from_secret: docker_username
@@ -175,8 +175,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 16.04-arm64v8
       - xenial-arm64v8
+      - 16.04-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -197,8 +197,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 16.04-arm32v7
       - xenial-arm32v7
+      - 16.04-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
     build_args:
@@ -219,8 +219,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 16.04-amd64
       - xenial-amd64
+      - 16.04-amd64
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian
     build_args:
@@ -230,10 +230,10 @@ steps:
     - name: docker
       path: /var/lib/docker
 
-- name: docker-push-manifest-16.04
+- name: docker-push-manifest-xenial
   image: plugins/manifest:1
   environment:
-    DRONE_TAG: 16.04
+    DRONE_TAG: xenial
   settings:
     username:
       from_secret: docker_username
@@ -241,10 +241,10 @@ steps:
       from_secret: docker_password
     spec: .manifest.tmpl
 
-- name: docker-push-manifest-xenial
+- name: docker-push-manifest-16.04
   image: plugins/manifest:1
   environment:
-    DRONE_TAG: xenial
+    DRONE_TAG: 16.04
   settings:
     username:
       from_secret: docker_username
@@ -299,8 +299,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 18.04-arm64v8
       - bionic-arm64v8
+      - 18.04-arm64v8
       - latest-arm64v8
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
@@ -322,8 +322,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 18.04-arm32v7
       - bionic-arm32v7
+      - 18.04-arm32v7
       - latest-arm32v7
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian.qemu
@@ -345,8 +345,8 @@ steps:
     create_repository: true
     use_cache: true
     tags: 
-      - 18.04-amd64
       - bionic-amd64
+      - 18.04-amd64
       - latest-amd64
     context: docker-user-image
     dockerfile: docker-user-image/Dockerfile.debian
@@ -357,10 +357,10 @@ steps:
     - name: docker
       path: /var/lib/docker
 
-- name: docker-push-manifest-18.04
+- name: docker-push-manifest-bionic
   image: plugins/manifest:1
   environment:
-    DRONE_TAG: 18.04
+    DRONE_TAG: bionic
   settings:
     username:
       from_secret: docker_username
@@ -368,10 +368,10 @@ steps:
       from_secret: docker_password
     spec: .manifest.tmpl
 
-- name: docker-push-manifest-bionic
+- name: docker-push-manifest-18.04
   image: plugins/manifest:1
   environment:
-    DRONE_TAG: bionic
+    DRONE_TAG: 18.04
   settings:
     username:
       from_secret: docker_username
