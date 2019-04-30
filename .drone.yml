@@ -50,7 +50,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - trusty-arm64v8
       - 14.04-arm64v8
     context: docker-user-image
@@ -72,7 +72,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - trusty-arm32v7
       - 14.04-arm32v7
     context: docker-user-image
@@ -94,7 +94,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - trusty-amd64
       - 14.04-amd64
     context: docker-user-image
@@ -174,7 +174,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - xenial-arm64v8
       - 16.04-arm64v8
     context: docker-user-image
@@ -196,7 +196,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - xenial-arm32v7
       - 16.04-arm32v7
     context: docker-user-image
@@ -218,7 +218,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - xenial-amd64
       - 16.04-amd64
     context: docker-user-image
@@ -298,7 +298,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - bionic-arm64v8
       - 18.04-arm64v8
       - latest-arm64v8
@@ -321,7 +321,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - bionic-arm32v7
       - 18.04-arm32v7
       - latest-arm32v7
@@ -344,7 +344,7 @@ steps:
     repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
-    tags: 
+    tags:
       - bionic-amd64
       - 18.04-amd64
       - latest-amd64
@@ -400,4 +400,39 @@ volumes:
 
 depends_on:
   - prepare
+
+---
+kind: pipeline
+name: notify
+trigger:
+  branch:
+  - master
+  event:
+  - push
+  status:
+  - success
+  - failure
+clone:
+  disable: true
+
+steps:
+- name: send-notification
+  image: appleboy/drone-discord
+  allow_failure: true
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    message: >
+      {{#success build.status}}
+        **{{repo.name}}**: Build #{{build.number}} on {{build.branch}} branch succeeded!
+      {{else}}
+        **{{repo.name}}**: Build #{{build.number}} on {{build.branch}} branch failed. Fix me please. {{build.link}}
+      {{/success}}
+
+depends_on:
+  - user-ubuntu-14.04
+  - user-ubuntu-16.04
+  - user-ubuntu-18.04
 
