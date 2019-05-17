@@ -3,6 +3,7 @@ Base Ubuntu image that steps down from root into a runtime-defined non-privilege
 
 [![Build Status](https://ci.pcxserver.com/api/badges/PhasecoreX/docker-user-ubuntu/status.svg)](https://ci.pcxserver.com/PhasecoreX/docker-user-ubuntu)
 [![Image Size](https://images.microbadger.com/badges/image/phasecorex/user-ubuntu.svg)](https://microbadger.com/images/phasecorex/user-ubuntu)
+[![Donate to support my code](https://img.shields.io/badge/Paypal-Donate-blue.svg)](https://paypal.me/pcx)
 
 ## For Developers
 Simply have your image use this image as it's base image:
