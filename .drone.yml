@@ -47,9 +47,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - trusty-arm64v8
       - 14.04-arm64v8
@@ -69,9 +69,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - trusty-arm32v7
       - 14.04-arm32v7
@@ -91,9 +91,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - trusty-amd64
       - 14.04-amd64
@@ -171,9 +171,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - xenial-arm64v8
       - 16.04-arm64v8
@@ -193,9 +193,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - xenial-arm32v7
       - 16.04-arm32v7
@@ -215,9 +215,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - xenial-amd64
       - 16.04-amd64
@@ -295,9 +295,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - bionic-arm64v8
       - 18.04-arm64v8
@@ -318,9 +318,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - bionic-arm32v7
       - 18.04-arm32v7
@@ -341,9 +341,9 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    repo: phasecorex/user-ubuntu
     create_repository: true
     use_cache: true
+    repo: phasecorex/user-ubuntu
     tags:
       - bionic-amd64
       - 18.04-amd64
