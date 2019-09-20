@@ -107,7 +107,7 @@ steps:
       path: /var/lib/docker
 
 - name: docker-push-manifest-xenial
-  image: plugins/manifest:1
+  image: plugins/manifest
   environment:
     DRONE_TAG: xenial
   settings:
@@ -118,7 +118,7 @@ steps:
     spec: .manifest.tmpl
 
 - name: docker-push-manifest-16.04
-  image: plugins/manifest:1
+  image: plugins/manifest
   environment:
     DRONE_TAG: 16.04
   settings:
@@ -234,7 +234,7 @@ steps:
       path: /var/lib/docker
 
 - name: docker-push-manifest-bionic
-  image: plugins/manifest:1
+  image: plugins/manifest
   environment:
     DRONE_TAG: bionic
   settings:
@@ -245,7 +245,7 @@ steps:
     spec: .manifest.tmpl
 
 - name: docker-push-manifest-18.04
-  image: plugins/manifest:1
+  image: plugins/manifest
   environment:
     DRONE_TAG: 18.04
   settings:
@@ -256,7 +256,7 @@ steps:
     spec: .manifest.tmpl
 
 - name: docker-push-manifest-latest
-  image: plugins/manifest:1
+  image: plugins/manifest
   environment:
     DRONE_TAG: latest
   settings:
