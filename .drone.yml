@@ -141,6 +141,144 @@ depends_on:
 
 ---
 kind: pipeline
+name: user-ubuntu-20.04
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: prepare
+  image: docker:git
+  commands:
+    - mkdir -p /cache/${DRONE_REPO}/docker
+    - echo "Enabled build caching"
+    - git submodule update --init --recursive
+    - echo "Pulled latest template files:"
+    - ls -1 docker-user-image
+    - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
+    - echo "Generated docker manifest template:"
+    - cat .manifest.tmpl
+  volumes:
+    - name: cache
+      path: /cache
+
+- name: docker-build-arm64v8
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    create_repository: true
+    use_cache: true
+    repo: phasecorex/user-ubuntu
+    tags:
+      - devel-arm64v8
+      - focal-arm64v8
+      - 20.04-arm64v8
+    context: docker-user-image
+    dockerfile: docker-user-image/Dockerfile.debian.qemu
+    build_args:
+      - QEMU_ARCH=aarch64
+      - ARCH_IMG=arm64v8/ubuntu:20.04
+  volumes:
+    - name: docker
+      path: /var/lib/docker
+
+- name: docker-build-arm32v7
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    create_repository: true
+    use_cache: true
+    repo: phasecorex/user-ubuntu
+    tags:
+      - devel-arm32v7
+      - focal-arm32v7
+      - 20.04-arm32v7
+    context: docker-user-image
+    dockerfile: docker-user-image/Dockerfile.debian.qemu
+    build_args:
+      - QEMU_ARCH=arm
+      - ARCH_IMG=arm32v7/ubuntu:20.04
+  volumes:
+    - name: docker
+      path: /var/lib/docker
+
+- name: docker-build-amd64
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    create_repository: true
+    use_cache: true
+    repo: phasecorex/user-ubuntu
+    tags:
+      - devel-amd64
+      - focal-amd64
+      - 20.04-amd64
+    context: docker-user-image
+    dockerfile: docker-user-image/Dockerfile.debian
+    build_args:
+      - QEMU_ARCH=x86_64
+      - ARCH_IMG=amd64/ubuntu:20.04
+  volumes:
+    - name: docker
+      path: /var/lib/docker
+
+- name: docker-push-manifest-devel
+  image: plugins/manifest
+  environment:
+    DRONE_TAG: devel
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    spec: .manifest.tmpl
+
+- name: docker-push-manifest-focal
+  image: plugins/manifest
+  environment:
+    DRONE_TAG: focal
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    spec: .manifest.tmpl
+
+- name: docker-push-manifest-20.04
+  image: plugins/manifest
+  environment:
+    DRONE_TAG: 20.04
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    spec: .manifest.tmpl
+
+volumes:
+- name: cache
+  host:
+    path: /var/cache
+- name: docker
+  host:
+    path: /var/cache/${DRONE_REPO}/docker
+
+depends_on:
+  - user-ubuntu-16.04
+
+---
+kind: pipeline
 name: user-ubuntu-18.04
 trigger:
   branch:
@@ -275,7 +413,7 @@ volumes:
     path: /var/cache/${DRONE_REPO}/docker
 
 depends_on:
-  - user-ubuntu-16.04
+  - user-ubuntu-20.04
 
 ---
 kind: pipeline
@@ -309,5 +447,6 @@ steps:
 
 depends_on:
   - user-ubuntu-16.04
+  - user-ubuntu-20.04
   - user-ubuntu-18.04
 
