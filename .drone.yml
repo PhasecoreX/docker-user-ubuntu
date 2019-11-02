@@ -58,6 +58,7 @@ steps:
     build_args:
       - QEMU_ARCH=aarch64
       - ARCH_IMG=arm64v8/ubuntu:16.04
+      - ARCH=arm64v8
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -80,6 +81,7 @@ steps:
     build_args:
       - QEMU_ARCH=arm
       - ARCH_IMG=arm32v7/ubuntu:16.04
+      - ARCH=arm32v7
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -102,6 +104,7 @@ steps:
     build_args:
       - QEMU_ARCH=x86_64
       - ARCH_IMG=amd64/ubuntu:16.04
+      - ARCH=amd64
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -183,6 +186,7 @@ steps:
     build_args:
       - QEMU_ARCH=aarch64
       - ARCH_IMG=arm64v8/ubuntu:20.04
+      - ARCH=arm64v8
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -206,6 +210,7 @@ steps:
     build_args:
       - QEMU_ARCH=arm
       - ARCH_IMG=arm32v7/ubuntu:20.04
+      - ARCH=arm32v7
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -229,6 +234,7 @@ steps:
     build_args:
       - QEMU_ARCH=x86_64
       - ARCH_IMG=amd64/ubuntu:20.04
+      - ARCH=amd64
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -321,6 +327,7 @@ steps:
     build_args:
       - QEMU_ARCH=aarch64
       - ARCH_IMG=arm64v8/ubuntu:18.04
+      - ARCH=arm64v8
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -344,6 +351,7 @@ steps:
     build_args:
       - QEMU_ARCH=arm
       - ARCH_IMG=arm32v7/ubuntu:18.04
+      - ARCH=arm32v7
   volumes:
     - name: docker
       path: /var/lib/docker
@@ -367,6 +375,7 @@ steps:
     build_args:
       - QEMU_ARCH=x86_64
       - ARCH_IMG=amd64/ubuntu:18.04
+      - ARCH=amd64
   volumes:
     - name: docker
       path: /var/lib/docker
