@@ -28,17 +28,12 @@ steps:
 - name: prepare
   image: docker:git
   commands:
-    - mkdir -p /cache/${DRONE_REPO}/docker
-    - echo "Enabled build caching"
     - git submodule update --init --recursive
     - echo "Pulled latest template files:"
     - ls -1 docker-user-image
     - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
     - echo "Generated docker manifest template:"
     - cat .manifest.tmpl
-  volumes:
-    - name: cache
-      path: /cache
 
 - name: docker-build-arm64v8
   image: plugins/docker
@@ -48,7 +43,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:16.04-arm64v8
     repo: phasecorex/user-ubuntu
     tags:
       - xenial-arm64v8
@@ -59,9 +54,6 @@ steps:
       - QEMU_ARCH=aarch64
       - ARCH_IMG=arm64v8/ubuntu:16.04
       - ARCH=arm64v8
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-build-arm32v7
   image: plugins/docker
@@ -71,7 +63,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:16.04-arm32v7
     repo: phasecorex/user-ubuntu
     tags:
       - xenial-arm32v7
@@ -82,9 +74,6 @@ steps:
       - QEMU_ARCH=arm
       - ARCH_IMG=arm32v7/ubuntu:16.04
       - ARCH=arm32v7
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-build-amd64
   image: plugins/docker
@@ -94,7 +83,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:16.04-amd64
     repo: phasecorex/user-ubuntu
     tags:
       - xenial-amd64
@@ -105,9 +94,6 @@ steps:
       - QEMU_ARCH=x86_64
       - ARCH_IMG=amd64/ubuntu:16.04
       - ARCH=amd64
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-push-manifest-xenial
   image: plugins/manifest
@@ -131,14 +117,6 @@ steps:
       from_secret: docker_password
     spec: .manifest.tmpl
 
-volumes:
-- name: cache
-  host:
-    path: /var/cache
-- name: docker
-  host:
-    path: /var/cache/${DRONE_REPO}/docker
-
 depends_on:
   - prepare
 
@@ -155,17 +133,12 @@ steps:
 - name: prepare
   image: docker:git
   commands:
-    - mkdir -p /cache/${DRONE_REPO}/docker
-    - echo "Enabled build caching"
     - git submodule update --init --recursive
     - echo "Pulled latest template files:"
     - ls -1 docker-user-image
     - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
     - echo "Generated docker manifest template:"
     - cat .manifest.tmpl
-  volumes:
-    - name: cache
-      path: /cache
 
 - name: docker-build-arm64v8
   image: plugins/docker
@@ -175,7 +148,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:20.04-arm64v8
     repo: phasecorex/user-ubuntu
     tags:
       - devel-arm64v8
@@ -187,9 +160,6 @@ steps:
       - QEMU_ARCH=aarch64
       - ARCH_IMG=arm64v8/ubuntu:20.04
       - ARCH=arm64v8
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-build-arm32v7
   image: plugins/docker
@@ -199,7 +169,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:20.04-arm32v7
     repo: phasecorex/user-ubuntu
     tags:
       - devel-arm32v7
@@ -211,9 +181,6 @@ steps:
       - QEMU_ARCH=arm
       - ARCH_IMG=arm32v7/ubuntu:20.04
       - ARCH=arm32v7
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-build-amd64
   image: plugins/docker
@@ -223,7 +190,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:20.04-amd64
     repo: phasecorex/user-ubuntu
     tags:
       - devel-amd64
@@ -235,9 +202,6 @@ steps:
       - QEMU_ARCH=x86_64
       - ARCH_IMG=amd64/ubuntu:20.04
       - ARCH=amd64
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-push-manifest-devel
   image: plugins/manifest
@@ -272,16 +236,8 @@ steps:
       from_secret: docker_password
     spec: .manifest.tmpl
 
-volumes:
-- name: cache
-  host:
-    path: /var/cache
-- name: docker
-  host:
-    path: /var/cache/${DRONE_REPO}/docker
-
 depends_on:
-  - user-ubuntu-16.04
+  - prepare
 
 ---
 kind: pipeline
@@ -296,17 +252,12 @@ steps:
 - name: prepare
   image: docker:git
   commands:
-    - mkdir -p /cache/${DRONE_REPO}/docker
-    - echo "Enabled build caching"
     - git submodule update --init --recursive
     - echo "Pulled latest template files:"
     - ls -1 docker-user-image
     - ./generate_manifest.sh user-ubuntu arm64v8 arm32v7 amd64
     - echo "Generated docker manifest template:"
     - cat .manifest.tmpl
-  volumes:
-    - name: cache
-      path: /cache
 
 - name: docker-build-arm64v8
   image: plugins/docker
@@ -316,7 +267,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:18.04-arm64v8
     repo: phasecorex/user-ubuntu
     tags:
       - bionic-arm64v8
@@ -328,9 +279,6 @@ steps:
       - QEMU_ARCH=aarch64
       - ARCH_IMG=arm64v8/ubuntu:18.04
       - ARCH=arm64v8
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-build-arm32v7
   image: plugins/docker
@@ -340,7 +288,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:18.04-arm32v7
     repo: phasecorex/user-ubuntu
     tags:
       - bionic-arm32v7
@@ -352,9 +300,6 @@ steps:
       - QEMU_ARCH=arm
       - ARCH_IMG=arm32v7/ubuntu:18.04
       - ARCH=arm32v7
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-build-amd64
   image: plugins/docker
@@ -364,7 +309,7 @@ steps:
     password:
       from_secret: docker_password
     create_repository: true
-    use_cache: true
+    cache_from: phasecorex/user-ubuntu:18.04-amd64
     repo: phasecorex/user-ubuntu
     tags:
       - bionic-amd64
@@ -376,9 +321,6 @@ steps:
       - QEMU_ARCH=x86_64
       - ARCH_IMG=amd64/ubuntu:18.04
       - ARCH=amd64
-  volumes:
-    - name: docker
-      path: /var/lib/docker
 
 - name: docker-push-manifest-bionic
   image: plugins/manifest
@@ -413,16 +355,8 @@ steps:
       from_secret: docker_password
     spec: .manifest.tmpl
 
-volumes:
-- name: cache
-  host:
-    path: /var/cache
-- name: docker
-  host:
-    path: /var/cache/${DRONE_REPO}/docker
-
 depends_on:
-  - user-ubuntu-20.04
+  - prepare
 
 ---
 kind: pipeline
