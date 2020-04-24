@@ -1,7 +1,7 @@
 def main(ctx):
     image_name = "phasecorex/user-ubuntu"
     base_image_name = "library/ubuntu"
-    all_image_tags_arches = [{'tags': ['14.04', 'trusty'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}, {'tags': ['16.04', 'xenial'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}, {'tags': ['20.04', 'focal', 'devel'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}, {'tags': ['latest', '18.04', 'bionic'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}]
+    all_image_tags_arches = [{'tags': ['14.04', 'trusty'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}, {'tags': ['16.04', 'xenial'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}, {'tags': ['18.04', 'bionic'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}, {'tags': ['latest', '20.04', 'focal', 'rolling', 'devel'], 'arches': ['arm64v8', 'arm32v7', 'amd64'], 'dockerfile': 'docker-user-image/Dockerfile.debian'}]
     other_options = {
         "pre_build_commands": {
             "image": "docker:git",
